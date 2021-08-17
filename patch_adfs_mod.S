@@ -258,6 +258,7 @@ msg_doneB:      .asciz " failed."
 
 title_str:      .asciz "ADFSPatcher"
 help_str:       .asciz "ADFSPatcher	0.10 (17 Aug 2021)"
+copyright:      .asciz "(c) 2021 Matt Evans"
         .align
 
         ////////////////////////////////////////////////////////////////
