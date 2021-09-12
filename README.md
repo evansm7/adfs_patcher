@@ -1,11 +1,11 @@
-# Acorn ADFS patcher module for IDE fixes
+# Acorn ADFS 2.67 patcher module for IDE fixes
 
 v0.2, 12 September 2021
 
 
-Over on the stardot.org.uk forums, _sirbod_ has an excellent thread in which various ADFS IDE problems are discussed and a patched ADFS provided.  See:
+Over on the stardot.org.uk forums, _sirbod_ has an excellent thread in which various ADFS 2.67 IDE problems are discussed and a patched ADFS provided.  See:
 
-    *  https://stardot.org.uk/forums/viewtopic.php?f=16&t=14016
+   * https://stardot.org.uk/forums/viewtopic.php?f=16&t=14016
 
 The BASIC programs work on my system, but I wanted something I could push into my wonky IDE card's flash instead of forever loading a new ADFS (or BASIC patch program) from floppy.
 
@@ -18,9 +18,9 @@ If you can, it's much better to rebuild your host's ROM images with a better ADF
 
 On startup, the module:
 
-    * Searches for ADFS
-    * Moves ADFS to RMA/RAM
-    * Iterates through a list of instructions to patch, and patches!
+   * Searches for ADFS
+   * Moves ADFS to RMA/RAM
+   * Iterates through a list of instructions to patch, and patches!
 
 It should be safe to use on incompatible/unexpected ADFS versions; whilst I should really have looked for an ADFS checksum, the code at least looks for an 'expected' existing instruction at a given address before making alterations.
 
@@ -31,8 +31,8 @@ My hope is this doesn't render my IDE card "forever weird" when used in new mach
 
 The following patches are currently applied:
 
-    * Reduce max request size from 255 to 1
-    * Increase timeout from 700 to 64K magic-time-units
+   * Reduce max request size from 255 to 1
+   * Increase timeout from 700 to 64K magic-time-units
 
 These patches seem to make my CF card (in bog-standard CF-to-IDE adapter) work, instead of hang.  Bonus!
 
@@ -52,8 +52,8 @@ The default build prints a bunch of diagnostics, such as ADFS's location and pat
 
 ## Future project ideas
 
-    * Make this a generic utility, not just ADFS-specific, to add bug fixes live.
-    * Add non-volatile RAM configuration options, e.g. to enable groups of patches.
+   * Make this a generic utility, not just ADFS-specific, to add arbitrary module bug fixes live.
+   * Add non-volatile RAM configuration options, e.g. to live-enable groups of patches.
 
 
 ## License
