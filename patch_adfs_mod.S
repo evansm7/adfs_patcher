@@ -5,14 +5,34 @@
          *  1. Reduce max request size from 255 to 1
          *  2. Increase timeout from 700 to 64K magic-time-units
          *
-         * ADFS reverse engineering by sirbod, this module by Matt Evans
-         * (c) Matt Evans 2021
+         * ADFS reverse engineering by sirbod
          *
-         * v0.1 17 Aug 2021
+         * v0.2 12 Sep 2021
+         *
+         * Copyright 2021 Matt Evans
+         *
+         * Permission is hereby granted, free of charge, to any person obtaining
+         * a copy of this software and associated documentation files (the
+         * "Software"), to deal in the Software without restriction, including
+         * without limitation the rights to use, copy, modify, merge, publish,
+         * distribute, sublicense, and/or sell copies of the Software, and to
+         * permit persons to whom the Software is furnished to do so, subject to
+         * the following conditions:
+         *
+         * The above copyright notice and this permission notice shall be
+         * included in all copies or substantial portions of the Software.
+         *
+         * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+         * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+         * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+         * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+         * BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+         * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+         * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+         * SOFTWARE.
          */
 
         /* Tunables: */
-#define VERBOSE         // Reassuring (but noisy) messages
 
         /* Defs: */
 #define SWI_X           0x20000
@@ -76,11 +96,13 @@ init:
         bvs     fail_no_mod
         // r3 = module base (r3-4 len!)
 
+#ifdef VERBOSE
         adr     r0, msg_found
         swi     SWI_OS_WRITE0 | SWI_X
         bvs     fail_err_return
         mov     r0, r3
         bl      print_hex32
+#endif
 
         ldr     r4, [r3, #-4]           // r4 = module len
 
@@ -97,11 +119,13 @@ init:
         swi     SWI_OS_MODULE | SWI_X
         bvs     fail_no_mod2
 
+#ifdef VERBOSE
         adr     r0, msg_found_ram
         swi     SWI_OS_WRITE0 | SWI_X
         bvs     fail_err_return
         mov     r0, r3
         bl      print_hex32
+#endif
 
         // Module address in r3
 
@@ -122,6 +146,7 @@ init:
 
         b       1b
 2:
+#ifdef VERBOSE
         // Done.  Pretty-print message...?
         adr     r0, msg_done
         swi     SWI_OS_WRITE0 | SWI_X
@@ -143,9 +168,9 @@ init:
         swi     SWI_OS_WRITE0 | SWI_X
         bvs     fail_err_return
 
-1:
         swi     SWI_OS_NEWLINE | SWI_X
         bvs     fail_err_return
+#endif
         // Finished!
 
         ldmfd   r13!,{r0-r12,pc}^
@@ -164,6 +189,7 @@ fail_err_return:
         ldmfd   r13!,{r1-r12,lr}
         orr     pc, lr, #0x10000000
 
+#ifdef VERBOSE
 print_hex8:     // r0 = byte to print
         stmfd   r13!, {r1, lr}
         mov     r1, r0
@@ -210,6 +236,7 @@ print_hex32:    // r0 = word to print
         mov     r0, r10
         bl      print_hex8
         ldmfd   r13!, {r10, pc}^
+#endif
 
         ////////////////////////////////////////////////////////////////
 
