@@ -7,7 +7,7 @@
          *
          * ADFS reverse engineering by sirbod
          *
-         * v0.2 12 Sep 2021
+         * v0.3 12 Sep 2021
          *
          * Copyright 2021 Matt Evans
          *
@@ -284,7 +284,7 @@ msg_doneB:      .asciz " failed."
         .align
 
 title_str:      .asciz "ADFSPatcher"
-help_str:       .asciz "ADFSPatcher	0.10 (17 Aug 2021)"
+help_str:       .asciz "ADFSPatcher	0.30 (12 Sep 2021)"
 copyright:      .asciz "(c) 2021 Matt Evans"
         .align
 

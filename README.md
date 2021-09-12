@@ -1,6 +1,6 @@
 # Acorn ADFS 2.67 patcher module for IDE fixes
 
-v0.2, 12 September 2021
+v0.3, 12 September 2021
 
 
 Over on the stardot.org.uk forums, _sirbod_ has an excellent thread in which various ADFS 2.67 IDE problems are discussed and a patched ADFS provided.  See:
