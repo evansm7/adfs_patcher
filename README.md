@@ -1,6 +1,6 @@
 # Acorn ADFS patcher module for IDE fixes
 
-v0.1, 17 August 2021
+v0.2, 12 September 2021
 
 
 Over on the stardot.org.uk forums, _sirbod_ has an excellent thread in which various ADFS IDE problems are discussed and a patched ADFS provided.  See:
@@ -35,6 +35,19 @@ The following patches are currently applied:
     * Increase timeout from 700 to 64K magic-time-units
 
 These patches seem to make my CF card (in bog-standard CF-to-IDE adapter) work, instead of hang.  Bonus!
+
+
+## Building
+
+This uses `arm-none-eabi-gcc` and `arm-none-eabi-objcopy` (from gcc-arm-embedded), so have those in your path.  Then:
+
+> make
+
+This produces `patch_adfs_mod`.  This can be inserted into a Podule ROM image (using tools elsewhere).
+
+The default build prints a bunch of diagnostics, such as ADFS's location and patch status, which will be seen at boot.  You may prefer a quiet build:
+
+> make VERBOSE=0
 
 
 ## Future project ideas
